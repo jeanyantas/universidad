@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load matricula_tags %}
+
+<head>
+    <title>{% block title %}Home{% endblock title %}</title>
+</head>
+
+{% block body %}
+<div class="container">
+    <div class="row mx-auto">
+        <div class="col-md-12 col-sm-12 col-lg-12 col-xl-4 mx-auto">
+            <div class="card m-5" style="width: 18rem;">
+                <img src="{% static 'img/carreras.jpg' %}" class="card-img-top" alt="...">
+                <div class="card-body text-center">
+                  <p class="card-text text-dark">Tenemos {% total_carreras %} carreras registradas.</p>
+                  <a href="{% url 'App_matricula:carreras' %}" class="btn btn-danger">Carreras</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-sm-12 col-lg-12 col-xl-4 mx-auto">
+            <div class="card m-5" style="width: 18rem;">
+                <img src="{% static 'img/cursos.jpeg' %}" class="card-img-top" alt="...">
+                <div class="card-body text-center">
+                  <p class="card-text text-dark">Tenemos {% total_cursos %} cursos registrados.</p>
+                  <a href="{% url 'App_matricula:cursos' %}" class="btn btn-danger">Cursos</a>
+                </div>
+            </div>         
+        </div>
+        <div class="col-md-12 col-sm-12 col-lg-12 col-xl-4 mx-auto">
+            <div class="card m-5" style="width: 18rem;">
+                <img src="{% static 'img/estudiantes.jpg' %}" class="card-img-top" alt="...">
+                <div class="card-body text-center">
+                  <p class="card-text text-dark">Tenemos {% total_estudiantes %} estudiantes (Activos: {% total_estudiantes_activos %}).</p>
+                  <a href="{% url 'App_matricula:estudiantes' %}" class="btn btn-danger">Estudiantes</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}

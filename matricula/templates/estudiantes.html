@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+<head>
+    <title>{% block title %}Estudiantes{% endblock title %}</title>
+</head>
+
+{% block body %}
+<div class="row mt-5">
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+        {# Formulario para agregar nuevos estudiantes a la base de datos #}
+        <h5>Añadir Estudiante:</h5>
+        <div class="form-control">
+            <form method="post">
+                {% csrf_token %}
+                {{ estudiantes_form.as_p }}
+                <p><input type="submit" value="Agregar" class="btn btn-success btn-block text-white"></p>
+            </form>
+        </div>
+    </div>
+    
+    <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+        {# Listar todos los estudiantes de la base de datos #}
+        <div class="table-responsive py-2">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>DNI</th>
+                        <th>Apellido Paterno</th>
+                        <th>Apellido Materno</th>
+                        <th>Nombres</th>
+                        <th>Fecha de nacimiento</th>
+                        <th>Sexo</th>
+                        <th>Carrera</th>
+                        <th>Vigencia</th>
+                        <th colspan='2' class='text-center'>Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for e in estudiantes %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ e.dni }}</td>
+                        <td>{{ e.apellidoPaterno }}</td>
+                        <td>{{ e.apellidoMaterno }}</td>
+                        <td>{{ e.nombres }}</td>
+                        <td>{{ e.fechaNacimiento }}</td>
+                        <td>{{ e.sexo }}</td>
+                        <td>{{ e.carrera }}</td>
+                        <td>{{ e.vigencia }}</td>
+                        <td><a href="{% url 'App_matricula:eliminacionEstudiante' e.dni %}" class="btn btn-danger">Eliminar</a></td>
+                        <td><a href="{% url 'App_matricula:edicionEstudiante' e.dni %}" class="btn btn-info">Editar</a></td>
+                    </tr>
+                    {% empty %}
+                        <h5>No hay estudiantes universitarios registrados en el sistema</h5>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock body %}

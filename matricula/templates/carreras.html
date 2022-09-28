@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+<head>
+    <title>{% block title %}Carreras{% endblock title %}</title>
+</head>
+
+{% block body %}
+<div class="row mt-5">
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+        {# Formulario para agregar nuevas carreras a la base de datos #}
+        <h5>Añadir Carrera:</h5>
+        <div class="form-control">
+            <form method="post">
+                <table>
+                    {{ carreras_form.as_p }}
+                </table>
+                {% csrf_token %}
+                <p class="py-2"><input type="submit" value="Agregar" class="btn btn-success btn-block text-white"></p>
+            </form>
+        </div>
+    </div>
+    
+    <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+        {# Listar todas las carreras de la base de datos#}
+        <div class="table-responsive py-2">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Código</th> 
+                        <th>Carrera</th>
+                        <th>Años</th>
+                        <th colspan="2" class="text-center">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for c in carreras %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ c.codigo }}</td>
+                            <td>{{ c.nombre }}</td>
+                            <td>{{ c.duracion }}</td>
+                            <td><a href="{% url 'App_matricula:eliminacionCarrera' c.codigo %}" class="btn btn-danger">Eliminar</a></td>
+                            <td><a href="{% url 'App_matricula:edicionCarrera' c.codigo %}" class="btn btn-info">Editar</a></td>
+                        </tr>
+                    {% empty %}
+                        <h5>No hay carreras universitarias registradas en el sistema</h5>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock body %}

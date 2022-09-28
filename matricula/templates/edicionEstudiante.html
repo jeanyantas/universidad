@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+<head>
+    <title>{% block title %}Edición de Estudiantes Universitarios{% endblock title %}</title>
+</head>
+
+{% block body %}
+<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+    {# Formulario para editar estudiantes de la base de datos #}
+    <h5>Edición estudiante universitario</h5>
+    <div class="form-group mx-5">
+        <form method="post" class="form-control">
+            {% csrf_token %}
+            {{ formulario_estudiante }}
+            <p><input type="submit" value="Actualizar" class="mt-2 btn btn-success btn-block text-white"></p>
+        </form>
+    </div>
+</div>
+{% endblock body %}

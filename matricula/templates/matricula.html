@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+<head>
+    <title>{% block title %}Matrículas{% endblock title %}</title>
+</head>
+
+{% block body %}
+{# Formulario para agregar matriculas a la base de datos #}
+<div class="row mt-5">
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+        <h5>Añadir Matrícula:</h5>
+        <div class="form-control">
+            <form method="post">
+                {% csrf_token %}
+                {{ matricula_form }}
+                <br>
+                <p><input type="submit" value="Agregar" class="btn btn-success btn-block text-white"></p>
+            </form>
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+        {# Listar todas las matrículas de la base de datos #}
+        <div class="table-responsive py-2">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>ID de matrícula</th>
+                        <th>Estudiante</th>
+                        <th>Curso</th>  
+                        <th>Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for m in matriculas %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ m.id }}</td>
+                            <td>{{ m.estudiante }}</td>
+                            <td>{{ m.curso }}</td>
+                            <td><a href="{% url 'App_matricula:eliminacionMatricula' m.id %}" class="btn btn-danger">Eliminar</a></td>
+                        </tr>
+                    {% empty %}
+                        <h5>No hay matrículas registradas en el sistema</h5>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock body %}

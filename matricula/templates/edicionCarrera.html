@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+<head>
+    <title>{% block title %}Edición de Carreras Universitarias{% endblock title %}</title>
+</head>
+
+{% block body %}
+<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+    <h5>Edición de carrera universitaria:</h5>
+    <div class="form-group mx-5">
+        <form action="/editarCarrera/" method='POST' class="form-control">
+            {% csrf_token %}
+            <label for="txtCodigo" class="form-label">Código:</label>
+            <input type="number" id="txtCodigo" name="txtCodigo" value="{{ carrera.codigo }}" class="form-control" readonly>
+            <label for="txtNombre" class="form-label">Nombre:</label>
+            <input type="text" id="txtNombre" name="txtNombre" value="{{ carrera.nombre }}" class="form-control" placeholder="Nombre" maxlength="50" required>
+            <label for="txtDuracion" class="form-label">Duración:</label>
+            <input type="number" id="txtDuracion" name="txtDuracion" value="{{ carrera.duracion }}" class="form-control" placeholder="Duración" required>
+            <button type="submit" class="mt-2 btn btn-success btn-block text-white">Guardar</button>
+        </form>
+    </div>
+</div>
+{% endblock body %}
